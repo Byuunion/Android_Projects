@@ -41,6 +41,9 @@ public class TicTacToeActivity extends AppCompatActivity {
 	int	mComputerWins = 0;
 	int	mTies = 0;
 
+	static final int DIALOG_DIFFICULTY_ID = 0;
+	static final int DIALOG_QUIT_ID = 1;
+
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,15 +92,87 @@ public class TicTacToeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
          super.onCreateOptionsMenu(menu);
-         menu.add("New Game");
+		 MenuInflater inflater = getMenuInflater();
+		 inflater.inflate(R.menu.option_menu, menu);
+
          return true;
     }
 
+	@Override
+	protected Dialog onCreateDialog(int id)
+		{Dialog dialog = null;
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		switch (id) {
+			case DIALOG_DIFFICULTY_ID:
+				builder.setTitle(R.string.difficulty_choose);
+				final CharSequence[] levels =
+						{getResources().getString(R.string.difficulty_easy),
+						getResources().getString(R.string.difficulty_harder),
+						getResources().getString(R.string.difficulty_expert)};
+
+		int selected = -1;
+		if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Easy)
+			selected = 0;
+		if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Harder)
+			selected = 1;
+		if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Expert)
+			selected = 2;
+
+		builder.setSingleChoiceItems(levels, selected,
+			new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int item) {
+					dialog.dismiss();// Close dialog
+
+					if (item == 0)
+						mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
+					if (item == 1)
+						mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
+					if (item == 2)
+						mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
+
+// Display the selected difficultylevel
+	Toast.makeText(getApplicationContext(), levels[item],
+			Toast.LENGTH_SHORT).show();
+			}
+
+		});
+				dialog = builder.create();
+
+				break;
+
+			case DIALOG_QUIT_ID:
+				// Create the quit conformation dialog
+
+				builder.setMessage(R.string.quit_question)
+						.setCancelable(false)
+						.setNegativeButton(R.string.quit_yes, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id){
+								TicTacToeActivity.this.finish();
+							}
+						})
+						.setPositiveButton(R.string.quit_no, null);
+				dialog = builder.create();
+
+				break;
+		}
+		return dialog;
+	}
 
     // Handles menu item selections
     public boolean onOptionsItemSelected(MenuItem item) {
-        startNewGame();
-        return true;
+		switch (item.getItemId()) {
+			case R.id.new_game:
+				startNewGame();
+				return true;
+			case R.id.ai_difficulty:
+				showDialog(DIALOG_DIFFICULTY_ID);
+				return true;
+			case R.id.quit:
+				showDialog(DIALOG_QUIT_ID);
+				return true;
+		}
+		return false;
     }
 
 

@@ -176,6 +176,7 @@ public class TicTacToeGame {
 		return 1;
 	}
 	public DifficultyLevel getDifficultyLevel() {
+
 		return mDifficultyLevel;
 	}
 	public void setDifficultyLevel(DifficultyLevel difficultyLevel){
