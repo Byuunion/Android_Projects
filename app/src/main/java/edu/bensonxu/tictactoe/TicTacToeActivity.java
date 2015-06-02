@@ -20,8 +20,7 @@ import android.widget.Toast;
 import java.util.Random;
 
 public class TicTacToeActivity extends AppCompatActivity {
- int gp;
-	int s;
+
 	// Buttons making up the board
 	private Button mBoardButtons[];
 
