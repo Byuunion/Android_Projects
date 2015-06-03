@@ -43,6 +43,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 
 	static final int DIALOG_DIFFICULTY_ID = 0;
 	static final int DIALOG_QUIT_ID = 1;
+	static final int DIALOG_ABOUT_ID = 2;
 
 	/** Called when the activity is first created. */
     @Override
@@ -111,32 +112,42 @@ public class TicTacToeActivity extends AppCompatActivity {
 						getResources().getString(R.string.difficulty_harder),
 						getResources().getString(R.string.difficulty_expert)};
 
-		int selected = -1;
-		if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Easy)
-			selected = 0;
-		if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Harder)
-			selected = 1;
-		if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Expert)
-			selected = 2;
+				int selected = -1;
+				if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Easy)
+					selected = 0;
+				if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Harder)
+					selected = 1;
+				if (mGame.getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Expert)
+					selected = 2;
 
-		builder.setSingleChoiceItems(levels, selected,
-			new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int item) {
-					dialog.dismiss();// Close dialog
+				builder.setSingleChoiceItems(levels, selected,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int item) {
+							dialog.dismiss();// Close dialog
 
-					if (item == 0)
-						mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
-					if (item == 1)
-						mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
-					if (item == 2)
-						mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
+							if (item == 0)
+								mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
+							if (item == 1)
+								mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
+							if (item == 2)
+								mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
 
-// Display the selected difficultylevel
-	Toast.makeText(getApplicationContext(), levels[item],
-			Toast.LENGTH_SHORT).show();
-			}
+							// Display the selected difficultylevel
+								Toast.makeText(getApplicationContext(), levels[item],
+										Toast.LENGTH_SHORT).show();
+										}
 
-		});
+					});
+				dialog = builder.create();
+
+				break;
+
+			case DIALOG_ABOUT_ID:
+				Context context = getApplicationContext();
+				LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+				View layout = inflater.inflate(R.layout.about_dialog, null);
+				builder.setView(layout);
+				builder.setPositiveButton("OK", null);
 				dialog = builder.create();
 
 				break;
@@ -156,6 +167,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 
 				break;
 		}
+
 		return dialog;
 	}
 
@@ -167,6 +179,9 @@ public class TicTacToeActivity extends AppCompatActivity {
 				return true;
 			case R.id.ai_difficulty:
 				showDialog(DIALOG_DIFFICULTY_ID);
+				return true;
+			case R.id.about_dialog:
+				showDialog(DIALOG_ABOUT_ID);
 				return true;
 			case R.id.quit:
 				showDialog(DIALOG_QUIT_ID);
