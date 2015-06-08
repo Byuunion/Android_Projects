@@ -3,6 +3,7 @@ package edu.bensonxu.tictactoe;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.widget.Toast;
+
+// import android.media.audiofx;
 
 import java.util.Random;
 
@@ -48,6 +51,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+		Log.d("TicTacToeActivity", "Entered onCreate Method");
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -88,6 +92,8 @@ public class TicTacToeActivity extends AppCompatActivity {
 		}
 
         startNewGame();
+
+		Log.d("TicTacToeActivity", "Completed onCreate Method");
     }
 
     @Override
@@ -95,7 +101,7 @@ public class TicTacToeActivity extends AppCompatActivity {
          super.onCreateOptionsMenu(menu);
 		 MenuInflater inflater = getMenuInflater();
 		 inflater.inflate(R.menu.option_menu, menu);
-
+		 Log.d("TicTacToeActivity", "Completed onCreateOptionsMenu Method");
          return true;
     }
 
@@ -135,6 +141,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 							// Display the selected difficultylevel
 								Toast.makeText(getApplicationContext(), levels[item],
 										Toast.LENGTH_SHORT).show();
+
 										}
 
 					});
@@ -168,6 +175,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 				break;
 		}
 
+		Log.d("TicTacToeActivity", "Completed onCreateDialog Method");
 		return dialog;
 	}
 
@@ -187,6 +195,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 				showDialog(DIALOG_QUIT_ID);
 				return true;
 		}
+		Log.d("TicTacToeActivity", "Completed onOptionItemSelected method");
 		return false;
     }
 
@@ -217,6 +226,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 			mTurn = 'X';
 			mInfoTextView.setText(R.string.first_human);
 		}
+		Log.d("TicTacToeActivity", "Completed startNewGame method");
     }
 
     private void setMove(char mTurn, int location) {
@@ -228,6 +238,7 @@ public class TicTacToeActivity extends AppCompatActivity {
     		mBoardButtons[location].setTextColor(Color.rgb(0, 200, 0));
     	else
         	mBoardButtons[location].setTextColor(Color.rgb(200, 0, 0));
+		Log.d("TicTacToeActivity", "Completed setMove Method");
     }
 
     // Handles clicks on the game board buttons
@@ -236,6 +247,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 
         public ButtonClickListener(int location) {
              this.location = location;
+			 Log.d("TicTacToeActivity", "Completed ButtonClickListener");
         }
 
         public void onClick(View view) {
@@ -278,6 +290,7 @@ public class TicTacToeActivity extends AppCompatActivity {
 					mawinTextView.setText(getString(R.string.aWins) + String.valueOf(mComputerWins));
 				}
 				}
-		    }
+			Log.d("TicTacToeActivity", "Completed onClick Method");
+			}
 		}
 	}

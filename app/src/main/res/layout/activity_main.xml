@@ -86,7 +86,10 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
         <TextView android:id="@+id/hwin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
