@@ -15,7 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#009900"
-        android:text="Tic-Tac-Toe\n\ Created by Benson Xu"
+        android:text="@string/creator"
         android:gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:textSize="15dp"/>
@@ -24,7 +24,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:text="Choose from one of three difficulty levels. Dont let the Android beat you!"
+        android:text="@string/about_message"
         android:gravity="left"
         android:paddingLeft="15dp"
         android:paddingRight="5dp"
